@@ -6,12 +6,16 @@
  * @Description: In User Settings Edit
  * @FilePath: \cangjie\src\comment\comment.service.ts
  */
-import {} from './'
-export class CommentService {
-  getListForComments() {
 
-  },
-  create () {
-    this.
+import { BaseService } from "src/base/base.service";
+import { Injectable } from '@nestjs/common';
+// import { CommentInterface } from './comment.interface';
+import { Comment, CommentDocument } from './models/comment.model';
+import { InjectModel } from "@nestjs/mongoose";
+import { Model } from 'mongoose';
+@Injectable()
+export class CommentService extends BaseService<CommentDocument> {
+  constructor(@InjectModel(Comment.name) public commentModel: Model<CommentDocument>) {
+    super(commentModel)
   }
 }

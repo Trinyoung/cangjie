@@ -7,9 +7,13 @@
  * @FilePath: \cangjie\src\comment\comment.controller.ts
  */
 import { Controller, Get, Req } from '@nestjs/common';
-import { request } from 'express';
+import { Request, Response } from 'express';
+import {CommentService } from './comment.service'
 @Controller('comment')
 export class CommentController {
+  constructor (private commentSevice: CommentService) {
+    
+  }
   @Get()
   findAll(@Req() request: Request): string {
     return 'this action returns all cats';

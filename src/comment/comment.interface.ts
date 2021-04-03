@@ -6,8 +6,8 @@
  * @Description: In User Settings Edit
  * @FilePath: \cangjie\src\comment\comment.interface.ts
  */
-import { Types } from 'mongoose';
-export interface Comment {
+import { Types, Document } from 'mongoose';
+export interface CommentInterface extends Document {
   // @Prop({ required: true })
   nilName: string;
 

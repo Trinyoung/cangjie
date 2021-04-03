@@ -9,17 +9,13 @@
 // @@filename(app.module)
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-// import {}
 import { AppService } from './app.service';
-// import { GraphQLModule } from '@nestjs/graphql';
-// import { Comment } from './comment/modules/comment.module';
-// import { join } from 'path';
-// import { Mongoose } from 'mongoose';
+;
+import { CommentModule } from './comment/comment.module';
 import { MongooseModule } from '@nestjs/mongoose';
 @Module({
-  imports: [MongooseModule.forRoot('mongodb://localhost/process')],
+  imports: [ MongooseModule.forRoot('mongodb://localhost/process'), CommentModule ],
   controllers: [AppController],
   providers: [AppService],
-  // AuthorModule
 })
 export class AppModule {}

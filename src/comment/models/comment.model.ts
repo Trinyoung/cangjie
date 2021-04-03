@@ -7,10 +7,12 @@
  * @FilePath: \cangjie\src\author\author.module.ts
  */
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import * as Mongoose from 'mongoose';
+import { Document, Types } from 'mongoose';
+import { BaseModel } from 'src/base/base.model';
 export type CommentDocument = Comment & Document;
+
 @Schema()
-export class Comment {
+export class Comment extends BaseModel {
   @Prop({ required: true })
   nilName: string;
 
@@ -24,27 +26,28 @@ export class Comment {
   content: string;
 
   @Prop()
-  reply: Mongoose.Schema.Types.ObjectId;
+  reply: Types.ObjectId;
 
   @Prop()
-  parent: Mongoose.Schema.Types.ObjectId;
+  parent: Types.ObjectId;
 
   @Prop({ enum: [0, 1], default: 1 })
   isTop: number;
 
-  @Prop({ required: true })
-  createdAt: number;
+  // @Prop({ required: true })
+  // createdAt: number;
 
   @Prop({ required: true })
-  articleId: Mongoose.Types.ObjectId;
+  articleId: Types.ObjectId;
 
   @Prop({ required: true })
   authorUid: string;
 
-  @Prop()
-  createdBy: string;
+  // @Prop()
+  // createdBy: string;
 
-  @Prop({ required: true, default: 0 })
-  is_deleted: number;
+  // @Prop({ required: true, default: 0 })
+  // is_deleted: number;
 }
 export const CommentSchema = SchemaFactory.createForClass(Comment);
+// const schema = new MSchema();
