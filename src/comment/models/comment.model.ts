@@ -13,7 +13,7 @@ export type CommentDocument = Comment & Document;
 
 @Schema()
 export class Comment extends BaseModel {
-  @Prop({ required: true })
+  @Prop()
   nilName: string;
 
   @Prop()
