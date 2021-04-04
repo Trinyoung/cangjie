@@ -7,7 +7,7 @@
  * @FilePath: \cangjie\src\comment\favorite.module.ts
  */
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Types, Document } from 'mongoose';
+import { Schema as Type, Document } from 'mongoose';
 import { BaseModel } from '../../base/base.model';
 export type CommentFavoriteDocument = CommentFavorite & Document;
 @Schema()
@@ -16,7 +16,7 @@ export class CommentFavorite extends BaseModel {
   createdAt: number;
 
   @Prop({ required: true })
-  commentId: Types.ObjectId;
+  commentId: Type.Types.ObjectId;
 
   @Prop()
   createdBy: string;

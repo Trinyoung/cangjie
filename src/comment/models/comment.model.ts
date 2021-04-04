@@ -7,7 +7,7 @@
  * @FilePath: \cangjie\src\author\author.module.ts
  */
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Types } from 'mongoose';
+import { Document, Schema as Type } from 'mongoose';
 import { BaseModel } from 'src/base/base.model';
 export type CommentDocument = Comment & Document;
 
@@ -25,11 +25,11 @@ export class Comment extends BaseModel {
   @Prop({ required: true })
   content: string;
 
-  @Prop()
-  reply: Types.ObjectId;
+  @Prop({ type: Type.Types.ObjectId })
+  reply: Type.Types.ObjectId;
 
-  @Prop()
-  parent: Types.ObjectId;
+  @Prop({ type: Type.Types.ObjectId })
+  parent: Type.Types.ObjectId;
 
   @Prop({ enum: [0, 1], default: 1 })
   isTop: number;
@@ -37,8 +37,8 @@ export class Comment extends BaseModel {
   // @Prop({ required: true })
   // createdAt: number;
 
-  @Prop({ required: true })
-  articleId: Types.ObjectId;
+  @Prop({ type: Type.Types.ObjectId, required: true })
+  articleId: Type.Types.ObjectId;
 
   @Prop({ required: true })
   authorUid: string;

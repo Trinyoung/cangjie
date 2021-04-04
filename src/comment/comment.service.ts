@@ -23,6 +23,7 @@ export class CommentService extends BaseService<CommentDocument> {
 
   async getListForComments(query: FilterQuery<CommentDocument>, uid: string, lean: Boolean, projection?: string) {
     query = this._fullQuery(query);
+    console.log(query, 'query================>')
     const cursor = this.model.find(query, projection);
     let result: CommentDocument[];
     if (lean) {

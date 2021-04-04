@@ -20,6 +20,7 @@ export class BaseService<T extends BaseDocument> {
     }
     public async createItem(body: T): Promise<T> {
         body.createdAt = moment().unix();
+        console.log(body, '=================>body')
         const item = new this.model(body);
         return item.save();
     }

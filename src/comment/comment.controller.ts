@@ -10,7 +10,7 @@ import { Controller, Get, Post, Delete, Req, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { CommentService } from './comment.service';
 import { CommentFavoriteService } from './commentfavorite.service';
-// import { CommentDocument } from './models/comment.model';
+import { CommentDocument } from './models/comment.model';
 // import { CommentFavoriteDocument } from './models/favorite.model';
 @Controller()
 export class CommentController {
@@ -33,7 +33,7 @@ export class CommentController {
   @Post('/api/comments')
   async createItem(@Req() req: Request, @Res() res: Response) {
     try {
-      const body = req.body;
+      const body: CommentDocument = req.body as CommentDocument;
       const result = await this.service.createItem(body);
       return res.send({ code: '000', result });
     } catch (err) {
