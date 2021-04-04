@@ -25,7 +25,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     }),
     MongooseModule.forRootAsync({
       useFactory: async () => {
-        // console.log(process.env.DB, '=====mongodb config=========>');
+        console.log(process.env.DB, process.env.NODE_ENV, '=====mongodb config=========>');
         return {
           uri: process.env.DB
         }
