@@ -10,14 +10,30 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-;
 import { CommentModule } from './comment/comment.module';
-import { CommentController } from './comment/comment.controller';
-import { CommentService } from './comment/comment.service';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+// const { DATABASE_USER, DATABASE_PASSWORD, DATABASE_HOST, DATABASE_PORT, DATABASE_NAME } = process.env;
+// const mongodbUrl = `mongodb://${DATABASE_USER}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}`;
+
+// const mongodbUrl = 'mongodb://localhost:27017/process';
+// console.log(mongodbUrl, '----------------->');
 @Module({
-  imports: [ MongooseModule.forRoot('mongodb://localhost/process'), CommentModule ],
+  imports: [
+    ConfigModule.forRoot({
+      envFilePath:[`.env.${process.env.NODE_ENV}`]
+    }),
+    MongooseModule.forRootAsync({
+      useFactory: async () => {
+        // console.log(process.env.DB, '=====mongodb config=========>');
+        return {
+          uri: process.env.DB
+        }
+      }
+    }),
+    CommentModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
