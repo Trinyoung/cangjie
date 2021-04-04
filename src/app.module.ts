@@ -12,6 +12,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 ;
 import { CommentModule } from './comment/comment.module';
+import { CommentController } from './comment/comment.controller';
+import { CommentService } from './comment/comment.service';
 import { MongooseModule } from '@nestjs/mongoose';
 @Module({
   imports: [ MongooseModule.forRoot('mongodb://localhost/process'), CommentModule ],

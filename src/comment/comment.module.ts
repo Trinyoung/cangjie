@@ -4,9 +4,16 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { CommentController } from './comment.controller';
 import { CommentService } from './comment.service';
 import { Comment, CommentSchema } from './models/comment.model';
+import { CommentFavoriteSchema } from './models/favorite.model';
+import { UserSchema } from './models/user.model';
 
 @Module({
-    imports: [MongooseModule.forFeature([{name: Comment.name, schema: CommentSchema}])],
+    imports: [ MongooseModule.forFeature([
+        { name: 'comment', schema: CommentSchema },
+        { name: 'commentFavorites', schema: CommentFavoriteSchema },
+        { name: 'users', schema: UserSchema }
+    ])
+    ],
     controllers: [CommentController],
     providers: [CommentService]
 })

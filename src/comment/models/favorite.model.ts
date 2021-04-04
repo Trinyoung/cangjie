@@ -24,6 +24,7 @@ export class CommentFavorite extends BaseModel {
   @Prop({ required: true, default: 0 })
   is_deleted: number;
 }
+
 export const CommentFavoriteSchema = SchemaFactory.createForClass(
   CommentFavorite,
 );
