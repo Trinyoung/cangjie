@@ -14,18 +14,20 @@ import { CommentDocument } from './models/comment.model';
 // import { CommentFavoriteDocument } from './models/favorite.model';
 @Controller()
 export class CommentController {
-  private commentFavoriteService: CommentFavoriteService;
-  constructor(private service: CommentService) {
-
-  }
+  // private commentFavoriteService: CommentFavoriteService;
+  constructor(
+    private service: CommentService,
+    private commentFavoriteService: CommentFavoriteService,
+  ) {}
   @Get('api/comments/:articleId/list')
   async getListForComments(@Req() req: Request, @Res() res: Response) {
     try {
-      const uid = req.query.uid as string;
+      const uid = <string>req.query.uid;
       const query = req.params;
       const result = await this.service.getListForComments(query, uid, true);
       return res.send({ code: '000', result });
     } catch (err) {
+      console.log(err, 'err is here-------------->');
       return res.send({ code: '999', err });
     }
   }
@@ -34,21 +36,23 @@ export class CommentController {
   async createItem(@Req() req: Request, @Res() res: Response) {
     try {
       const body: CommentDocument = req.body as CommentDocument;
+      if (req.headers.user) {
+        body.createdBy = JSON.parse(req.headers.user as string).uid;
+      }
       const result = await this.service.createItem(body);
       return res.send({ code: '000', result });
     } catch (err) {
       return res.send({ code: '999', err });
     }
-
   }
 
   @Delete('/api/comments/:id')
-  async delete (@Req() req: Request, @Res() res: Response) {
+  async delete(@Req() req: Request, @Res() res: Response) {
     try {
       const query = req.body;
-      await this.service.updateItem(query, {is_deleted: 1});
+      await this.service.updateItem(query, { is_deleted: 1 });
     } catch (err) {
-      return res.send({code: '999', err});
+      return res.send({ code: '999', err });
     }
   }
 

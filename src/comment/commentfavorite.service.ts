@@ -13,7 +13,7 @@ import { BaseService } from "../base/base.service";
 // import { Comment, CommentDocument } from './models/comment.model';
 import { CommentFavoriteDocument } from './models/favorite.model';
 // import { UserDocument} from './models/user.model';
-@Injectable()
+@Injectable() // CommentFavoriteService 作为供应商。
 export class CommentFavoriteService extends BaseService<CommentFavoriteDocument> {
     constructor (@InjectModel('commentFavorites') public commentFavoriteModel: Model<CommentFavoriteDocument>) {
         super(commentFavoriteModel);

@@ -20,9 +20,11 @@ export class BaseService<T extends BaseDocument> {
     }
     public async createItem(body: T): Promise<T> {
         body.createdAt = moment().unix();
-        console.log(body, '=================>body')
+        console.log(body, '===========+++++++======>body')
         const item = new this.model(body);
-        return item.save();
+        const result = await item.save();
+        console.log(result, '====================result');
+        return result;
     }
 
     public async updateItem(condition: UpdateQuery<T>, query: FilterQuery<T>, options?: ModelUpdateOptions) {

@@ -43,11 +43,11 @@ export class Comment extends BaseModel {
   @Prop({ required: true })
   authorUid: string;
 
-  // @Prop()
-  // createdBy: string;
+  @Prop()
+  createdBy: string;
 
-  // @Prop({ required: true, default: 0 })
-  // is_deleted: number;
+  @Prop({ required: true, default: 0 })
+  is_deleted: number;
 }
 export const CommentSchema = SchemaFactory.createForClass(Comment);
 // const schema = new MSchema();

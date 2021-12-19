@@ -7,33 +7,42 @@
  * @FilePath: \cangjie\src\app.module.ts
  */
 // @@filename(app.module)
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CommentModule } from './comment/comment.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-// const { DATABASE_USER, DATABASE_PASSWORD, DATABASE_HOST, DATABASE_PORT, DATABASE_NAME } = process.env;
-// const mongodbUrl = `mongodb://${DATABASE_USER}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}`;
-
-// const mongodbUrl = 'mongodb://localhost:27017/process';
-// console.log(mongodbUrl, '----------------->');
+import { ConfigModule } from '@nestjs/config';
+import { AuthMiddleware } from './auth.middleware';
+import { RedisModule } from 'nestjs-redis';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath:[`.env.${process.env.NODE_ENV || 'development'}`]
+      envFilePath: [`.env.${process.env.NODE_ENV || 'development'}`],
     }),
     MongooseModule.forRootAsync({
       useFactory: async () => {
-        console.log(process.env.DB, process.env.NODE_ENV, '=====mongodb config=========>');
         return {
-          uri: process.env.DB
-        }
-      }
+          uri: process.env.DB,
+        };
+      },
     }),
-    CommentModule
+    RedisModule.register({
+      host: process.env.REDIS_HOST,
+      port: parseInt(process.env.REDIS_PORT),
+      db: parseInt(process.env.REDIS_DB),
+      password: process.env.REDIS_PASSWORD,
+      keyPrefix: process.env.REDIS_PRIFIX,
+    }),
+    CommentModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(AuthMiddleware)
+      .forRoutes({ path: '/api/comments', method: RequestMethod.POST });
+  }
+}

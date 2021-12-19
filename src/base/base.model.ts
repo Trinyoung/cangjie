@@ -12,19 +12,19 @@ export type BaseDocument = BaseModel & Document;
 
 @Schema()
 export class BaseModel {
-    @Prop()
-    createdAt: number;
+  @Prop()
+  createdAt: number;
 
-    @Prop()
-    updatedAt: number;
+  @Prop()
+  updatedAt: number;
 
-    @Prop()
-    updatedBy: string;
+  @Prop()
+  updatedBy: string;
 
-    @Prop()
-    createdBy: string;
+  @Prop()
+  createdBy: string;
 
-    @Prop({ enum: [0, 1], required: true, default: 0 })
-    is_deleted: number;
+  @Prop({ enum: [0, 1], required: true, default: 0 })
+  is_deleted: number;
 }
 // export const UserSchema = SchemaFactory.createForClass(User);
